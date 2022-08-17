@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Dancing+Script&family=Heebo&family=Permanent+Marker&family=Roboto&display=swap');
+
+body {
+    margin: 0px;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+#btn {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    font-size: 1.5rem;
+    width: 100%;
+    cursor: pointer;
+    border: 0px;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+}
+
+.primary {
+    background-color: #2B87D1;
+}
+
+.in-progress {
+    background-color: #DA4E41;
+}
+
+.press-now {
+    background-color: #60BC4B;
+}

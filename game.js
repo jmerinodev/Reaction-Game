@@ -8,11 +8,11 @@ btn.addEventListener('click', startGame, false);
 
 function startGame() {
     btn.removeEventListener('click', startGame);
-    inProgress();  
+    waitingForGreen();
 }
 
-function inProgress() {
-    btn.addEventListener('click', pressed, false);
+function waitingForGreen() {
+    btn.addEventListener('click', userClick, false);
     btn.classList.add("in-progress");
     btn.innerHTML = "<h1>... <br/> Wait for Green</h1>";
     var miliseconds = Math.floor(Math.random() * (15 - 10 + 10) + 10) * 100;
@@ -25,7 +25,7 @@ function inProgress() {
     }, miliseconds);
 }
 
-function pressed() {
+function userClick() {
     clearInterval(interval);
     clearTimeout(timeout);
     btn.removeAttribute('class');
@@ -37,7 +37,7 @@ function pressed() {
         btn.classList.add('primary');
         btn.innerHTML = "<h1>" + (timer * 10) + " ms</h1>" + "<p>Click to keep going.</p>";
     }
-    btn.removeEventListener('click', pressed, false);
+    btn.removeEventListener('click', userClick, false);
     btn.addEventListener('click', restartGame, false);
 }
 
@@ -45,5 +45,5 @@ function restartGame() {
     timer = 0;
     btn.removeAttribute('class');
     btn.removeEventListener('click', restartGame, false);
-    inProgress();
+    waitingForGreen();
 }

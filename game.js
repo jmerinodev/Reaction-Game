@@ -1,4 +1,4 @@
-var btn = document.getElementById('btn');
+var btn = document.getElementById('container');
 
 var timer = 0;
 var timeout;

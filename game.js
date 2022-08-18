@@ -1,49 +1,51 @@
-var btn = document.getElementById('container');
-
-var timer = 0;
+var container = document.getElementById('container');
+var elapsedTime = 0;
 var timeout;
 var interval;
 
-btn.addEventListener('click', startGame, false);
+container.addEventListener('click', startGame, false);
 
 function startGame() {
-    btn.removeEventListener('click', startGame);
-    waitingForGreen();
+    container.removeEventListener('click', startGame);
+    waitForGreen();
 }
 
-function waitingForGreen() {
-    btn.addEventListener('click', userClick, false);
-    btn.classList.add("in-progress");
-    btn.innerHTML = "<h1>... <br/> Wait for Green</h1>";
-    var miliseconds = Math.floor(Math.random() * (15 - 10 + 10) + 10) * 100;
+function waitForGreen() {
+    container.addEventListener('click', captureUserClick, false);
+    container.classList.add("in-progress");
+    container.innerHTML = "<h1>... <br/> Wait for Green</h1>";
     timeout = setTimeout(function() {
-        btn.classList.add("press-now");
-        btn.innerHTML = "<h1>... <br/> Click!</h1>";
+        container.classList.add("press-now");
+        container.innerHTML = "<h1>... <br/> Click!</h1>";
         interval = setInterval(function() {
-            timer++;
+            elapsedTime++;
         }, 1);
-    }, miliseconds);
+    }, getRandomMiliseconds());
 }
 
-function userClick() {
+function getRandomMiliseconds() {
+    return Math.floor(Math.random() * (20 - 10 + 10) + 10) * 100;
+}
+
+function captureUserClick() {
     clearInterval(interval);
     clearTimeout(timeout);
-    btn.removeAttribute('class');
-    if (timer == 0) {
-        btn.classList.add('primary');
-        btn.innerHTML = "<h1>Too soon!</h1><p>Click to try again.</p>"
+    container.removeAttribute('class');
+    if (elapsedTime == 0) {
+        container.classList.add('primary');
+        container.innerHTML = "<h1>Too soon!</h1><p>Click to try again.</p>"
     }
     else {
-        btn.classList.add('primary');
-        btn.innerHTML = "<h1>" + (timer * 10) + " ms</h1>" + "<p>Click to keep going.</p>";
+        container.classList.add('primary');
+        container.innerHTML = "<h1>" + (elapsedTime * 10) + " ms</h1>" + "<p>Click to keep going.</p>";
     }
-    btn.removeEventListener('click', userClick, false);
-    btn.addEventListener('click', restartGame, false);
+    container.removeEventListener('click', captureUserClick, false);
+    container.addEventListener('click', restartGame, false);
 }
 
 function restartGame() {
-    timer = 0;
-    btn.removeAttribute('class');
-    btn.removeEventListener('click', restartGame, false);
-    waitingForGreen();
+    elapsedTime = 0;
+    container.removeAttribute('class');
+    container.removeEventListener('click', restartGame, false);
+    waitForGreen();
 }

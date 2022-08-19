@@ -17,9 +17,11 @@ function waitForGreen() {
     timeout = setTimeout(function() {
         container.classList.add("press-now");
         container.innerHTML = "<h1>... <br/> Click!</h1>";
+        var start = new Date().getTime();
         interval = setInterval(function() {
-            elapsedTime++;
-        }, 1);
+            var now = new Date().getTime();
+            elapsedTime = (now - start);
+        }, 40);
     }, getRandomMiliseconds());
 }
 
@@ -37,7 +39,7 @@ function captureUserClick() {
     }
     else {
         container.classList.add('primary');
-        container.innerHTML = "<h1>" + (elapsedTime * 10) + " ms</h1>" + "<p>Click to keep going.</p>";
+        container.innerHTML = "<h1>" + elapsedTime + " ms</h1>" + "<p>Click to keep going.</p>";
     }
     container.removeEventListener('click', captureUserClick, false);
     container.addEventListener('click', restartGame, false);
